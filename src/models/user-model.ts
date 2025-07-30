@@ -6,6 +6,7 @@ export class User extends Model {
   email!: string;
   senha!: string;
   nome!: string;
+  role!: 'Gerente' | 'Funcionário' | 'Cliente'; 
 }
 
 User.init(
@@ -27,8 +28,12 @@ User.init(
     nome: {
       type: DataTypes.STRING,
       allowNull: false,
-    }
-  },
+    },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: 'Funcionario', // Default role
+  }  },
   {
     sequelize,
     modelName: 'User',

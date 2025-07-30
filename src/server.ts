@@ -2,6 +2,7 @@
 import sequelize from "./database";
 import { ENV } from "./config/env";
 import { Express } from "express";
+import { Sequelize } from "sequelize";
 
 // Função para iniciar o servidor em uma porta específica
 const startServer = async (port: number) => {
@@ -34,3 +35,29 @@ sequelize
   .catch((err: any) => {
     console.error("Erro ao sincronizar o banco de dados:", err);
   });
+
+interface Database {
+  user: typeof import("./models/user-model").User;
+  sequelize: Sequelize;
+  Sequelize: typeof Sequelize;
+}
+
+const db: Database = {
+  sequelize,
+  Sequelize,
+  user: undefined
+  };
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
+const initializeDatabaseAndServer = async () => {
+  try {
+    db.user = (await import("./models/user-model")).default;
+    // await sequelize.sync({ force: true });
+    console.log("Banco de dados sincronizado");
+    startServer(Number(ENV.PORT));
+  } catch (err: any) {
+    console.error("Erro ao sincronizar o banco de dados:", err);
+  }
+  };
+
+initializeDatabaseAndServer();

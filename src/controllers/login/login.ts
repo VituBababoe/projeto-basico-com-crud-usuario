@@ -39,7 +39,7 @@ export class LoginController implements Controller {
 
       // Gerar o access token
       const token = jwt.sign(
-        { id: user.id, email: user.email },
+        { id: user.id, email: user.email, role: user.role },
         ENV.JWT_SECRET || 'default_secret',
         accessTokenOptions
       );
