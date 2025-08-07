@@ -10,7 +10,7 @@ const options = {
       description: 'API para gerenciamento de usuários',
     },
   },
-  apis: ['./src/routes/*.ts'], // Caminho para os arquivos de rotas
+  apis: ['./src/routes/**/*.ts'], // Caminho para os arquivos de rotas
 };
 
 const specs = swaggerJsdoc(options);
