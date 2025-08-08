@@ -1,15 +1,15 @@
 import { Router } from "express";
-import adaptRoute from "../adapters/express-route-adapter";
-import authMiddleware from "../middlewares/auth-middleware";
-import ListarUsuarioController from "../controllers/usuario/listar-usuario";
+import adaptRoute from "../../adapters/express-route-adapter";
+import authMiddleware from "../../middlewares/auth-middleware";
+import ListarPratoController from "../../controllers/prato/listar-pratos";
 
 export default (router: Router): void => {
   /**
    * @swagger
-   * /api/users/{id}:
+   * /api/prato/{id}:
    *   get:
-   *     summary: Retorna a lista de usuários
-   *     tags: [Users]
+   *     summary: Retorna a lista de pratos
+   *     tags: [Pratos]
    *     security:
    *       - bearerAuth: []
    *     parameters:
@@ -18,20 +18,20 @@ export default (router: Router): void => {
    *         schema:
    *           type: integer
    *         required: false
-   *         description: The user id
+   *         description: Id dos pratos
    *     responses:
    *       200:
-   *         description: A lista de usuários foi retornada com sucesso
+   *         description: A lista de pratos foi retornada com sucesso
    *         content:
    *           application/json:
    *             schema:
    *               type: array
    *               items:
-   *                 $ref: '#/components/schemas/User'
+   *                 $ref: '#/components/schemas/Prato'
    */
   router.get(
-    "/users{/:id}",
+    "/prato{/:id}",
     authMiddleware,
-    adaptRoute(new ListarUsuarioController())
+    adaptRoute(new ListarPratoController())
   );
 };
